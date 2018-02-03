@@ -16,7 +16,11 @@ exports.create_a_task = function(req, res) {
   new_task.save(function(err, task) {
     if (err)
       res.send(err);
-    res.json(task);
+    Task.find({}, function(err, task) {
+      if (err)
+        res.send(err);
+      res.json(task);
+    });
   });
 };
 
@@ -32,7 +36,11 @@ exports.update_a_task = function(req, res) {
   Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task) {
     if (err)
       res.send(err);
-    res.json(task);
+    Task.find({}, function(err, task) {
+      if (err)
+        res.send(err);
+      res.json(task);
+    });
   });
 };
 
@@ -42,6 +50,10 @@ exports.delete_a_task = function(req, res) {
   }, function(err, task) {
     if (err)
       res.send(err);
-    res.json({ message: 'Task successfully deleted' });
+    Task.find({}, function(err, task) {
+      if (err)
+        res.send(err);
+      res.json(task);
+    });
   });
 };
